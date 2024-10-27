@@ -2,6 +2,7 @@
 import { updateEntry } from "@/utils/api";
 import { useState } from "react";
 import { useAutosave } from "react-autosave";
+import Spinner from "./Spinner";
 
 const Editor = ({ entry }: any) => {
     const [value, setValue] = useState(entry.content);
@@ -32,38 +33,44 @@ const Editor = ({ entry }: any) => {
         data: value,
         onSave: async (_value) => {
             setIsLoading(true);
-            const data  = await updateEntry(entry.id, _value);
+            const data = await updateEntry(entry.id, _value);
             setAnalysis(data.analysis);
             setIsLoading(false);
         },
     });
     return (
-        <div className="w-full h-full  grid grid-cols-3">
-            <div className="col-span-2">
-                {isLoading && <div>...loading</div>}
-                <textarea
-                    className="w-full h-full p-8 text-xl outline-none"
-                    value={value}
-                    onChange={(e) => setValue(e.target.value)}
-                />
+        <div className="w-full h-full grid grid-cols-3 gap-0 relative">
+            <div className="absolute left-0 top-0 p-2">
+                {isLoading ? (
+                    <Spinner />
+                ) : (
+                    <div className="w-[16px] h-[16px] rounded-full bg-green-500"></div>
+                )}
+                <div className="col-span-2">
+                    <textarea
+                        className="w-full h-full text-xl p-8"
+                        value={value}
+                        onChange={(e) => setValue(e.target.value)}
+                    />
+                </div>
             </div>
 
-            <div className="border-l border-black/10">
-                <div className="px-6 py-10" style={{ backgroundColor: color }}>
-                    <h2 className="text-2xl">Analysis</h2>
+            <div className="border-l border-black/5">
+                <div className="h-[100px] bg-blue-600 text-white p-8" style={{ backgroundColor: color }}>
+                    <h2 className="text-2xl bg-white/25 text-black">Analysis</h2>
                 </div>
                 <div>
-                    <ul>
+                    <ul role="list" className="divide-y divide-gray-200">
                         {AnalysisData.map((item) => {
                             return (
                                 <li
                                     key={item.name}
-                                    className="px-2 py-4 flex items-center justify-between border-b border-t border-black/10"
+                                     className="py-4 px-8 flex items-center justify-between"
                                 >
-                                    <span className="text-lg font-semibold">
+                                    <div className="text-xl font-semibold">
                                         {item.name}
-                                    </span>
-                                    <span>{item.value}</span>
+                                    </div>
+                                    <div className="text-xl">{item.value}</div>
                                 </li>
                             );
                         })}

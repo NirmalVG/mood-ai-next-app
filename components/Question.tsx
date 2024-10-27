@@ -25,7 +25,7 @@ const Question = () => {
             <form onSubmit={handleSubmit}>
                 <input
                     disabled={loading}
-                    className="border border-black/20 px-4 py-2 text-lg rounded-lg"
+                    className="border border-gray-300 rounded-md p-2 text-lg"
                     value={value}
                     onChange={onChange}
                     type="text"
@@ -34,13 +34,13 @@ const Question = () => {
                 <button
                     disabled={loading}
                     type="submit"
-                    className="bg-blue-400 px-4 py-2 rounded-lg text-lg"
+                    className="bg-blue-400 px-4 py-2 rounded-md"
                 >
                     Ask
                 </button>
             </form>
-            {loading && <div>...loading</div>}
-            {response && <div>{response}</div>}
+            {loading && <div>Loading...</div>}
+            {response && <div className="my-4 text-xl">{response}</div>}
         </div>
     );
 };
