@@ -21,11 +21,14 @@ const Question = () => {
     };
 
     return (
-        <div>
-            <form onSubmit={handleSubmit}>
+        <div className="w-full max-w-md mx-auto p-4">
+            <form
+                onSubmit={handleSubmit}
+                className="flex flex-col md:flex-row gap-2"
+            >
                 <input
                     disabled={loading}
-                    className="border border-gray-300 rounded-md p-2 text-lg"
+                    className="flex-1 border border-gray-300 rounded-md p-2 text-base md:text-lg"
                     value={value}
                     onChange={onChange}
                     type="text"
@@ -34,13 +37,20 @@ const Question = () => {
                 <button
                     disabled={loading}
                     type="submit"
-                    className="bg-blue-400 px-4 py-2 rounded-md"
+                    className="bg-blue-400 text-white px-4 py-2 rounded-md text-base md:text-lg"
                 >
                     Ask
                 </button>
             </form>
-            {loading && <div>Loading...</div>}
-            {response && <div className="my-4 text-xl">{response}</div>}
+
+            {loading && (
+                <div className="mt-2 text-center text-gray-500">Loading...</div>
+            )}
+            {response && (
+                <div className="my-4 text-lg md:text-xl text-gray-700">
+                    {response}
+                </div>
+            )}
         </div>
     );
 };
