@@ -5,18 +5,7 @@ import { useAutosave } from "react-autosave";
 import Spinner from "./Spinner";
 import { useRouter } from "next/navigation";
 
-interface Entry {
-    id: string;
-    content: string;
-    analysis: {
-        color: string;
-        subject: string;
-        mood: string;
-        negative: boolean;
-    };
-}
-
-const Editor = ({ entry }: { entry: Entry }) => {
+const Editor = ({ entry }: { entry: any }) => {
     const [text, setText] = useState(entry.content);
     const [currentEntry, setEntry] = useState(entry);
     const [isSaving, setIsSaving] = useState(false);
